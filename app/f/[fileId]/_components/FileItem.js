@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Download } from "lucide-react";
 const fileItem = ({ file }) => {
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState("");
 
   return (
     file && (
@@ -33,6 +33,7 @@ const fileItem = ({ file }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         ) : null}
+
         <button
           href=""
           className="flex gap-2 p-2 bg-primary text-white rounded-full px-5 items-center hover:bg-blue-600 text-[14px] mt-5 text-center justify-center disabled:bg-gray-300"

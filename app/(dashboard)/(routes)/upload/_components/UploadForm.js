@@ -9,9 +9,9 @@ function UploadForm({ uploadBtnClick, progress }) {
   const [errorMsg, setErrorMsg] = useState();
   const onFileSelect = (file) => {
     console.log(file);
-    if (file && file.size > 2000000) {
-      console.log("Size is greater than 2 mb");
-      setErrorMsg("Maximum File Upload Size is 2 MB");
+    if (file && file.size > 20000000) {
+      console.log("Size is greater than 20 mb");
+      setErrorMsg("Maximum File Upload Size is 20 MB");
       return;
     }
     setFile(file);
@@ -43,7 +43,7 @@ function UploadForm({ uploadBtnClick, progress }) {
               drop
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              SVG, PNG, JPG or GIF (Max size: 200 MB)
+              SVG, PNG, JPG or GIF (Max size: 20 MB)
             </p>
           </div>
           <input
