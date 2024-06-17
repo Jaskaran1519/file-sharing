@@ -7,7 +7,8 @@ import React, { useState } from "react";
 const FileShareForm = ({ file, onPasswordSave }) => {
   const [ispasswordEnable, setIsPasswordEnable] = useState(false);
   const [password, setpassword] = useState("");
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
+  const [copyNotification, setCopyNotification] = useState(false);
 
   const { user } = useUser();
 
@@ -25,14 +26,19 @@ const FileShareForm = ({ file, onPasswordSave }) => {
     });
   };
   const onCopyClick = () => {
-    navigator.clipboard.writeText(file.shorturl);
+    navigator.clipboard.writeText(file.shorturl).then(() => {
+      setCopyNotification(true);
+      setTimeout(() => {
+        setCopyNotification(false);
+      }, 1500);
+    });
   };
   return (
     file && (
       <div className="flex flex-col gap-2">
         <div>
           <label className="text-[14px] text-gray-500">show</label>
-          <div className="flex gap-5 p-2 border rounded-md">
+          <div className="flex gap-5 p-2 border rounded-md relative ">
             <input
               type="text"
               value={file.shorturl}
@@ -43,6 +49,11 @@ const FileShareForm = ({ file, onPasswordSave }) => {
               className="text-gray-400 hover:text-gray-700"
               onClick={() => onCopyClick()}
             />
+            {copyNotification && (
+              <div className="text-gray-500 bg-white rounded-full absolute -right-0 -top-16 text-[1rem] p-2 border-[1px] border-gray-500 mt-2">
+                Copied
+              </div>
+            )}
           </div>
           <div className="gap-3 flex mt-5">
             <input
