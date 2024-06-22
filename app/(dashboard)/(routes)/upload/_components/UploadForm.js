@@ -4,9 +4,11 @@ import AlertMsg from "./AlertMsg";
 import FilePreview from "./FilePreview";
 import ProgressBar from "./ProgressBar";
 
-function UploadForm({ uploadBtnClick, progress }) {
+function UploadForm({ uploadBtnClick, progress, uploading }) {
+  // Accept uploading state as prop
   const [file, setFile] = useState();
   const [errorMsg, setErrorMsg] = useState();
+
   const onFileSelect = (file) => {
     console.log(file);
     if (file && file.size > 20000000) {
@@ -59,7 +61,7 @@ function UploadForm({ uploadBtnClick, progress }) {
         <FilePreview file={file} removeFile={() => setFile(null)} />
       ) : null}
 
-      {progress ? (
+      {progress > 0 && progress < 100 && uploading ? (
         <ProgressBar progress={progress} />
       ) : (
         <button

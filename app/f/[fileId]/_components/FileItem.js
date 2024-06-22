@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Download } from "lucide-react";
-const fileItem = ({ file }) => {
+const FileItem = ({ file }) => {
   const [password, setPassword] = useState("");
 
   return (
@@ -48,4 +48,4 @@ const fileItem = ({ file }) => {
   );
 };
 
-export default fileItem;
+export default FileItem;

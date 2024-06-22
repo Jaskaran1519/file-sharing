@@ -2,8 +2,7 @@
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { app } from "../../../firebaseConfig";
-import FileItem from "./_components/fileItem";
-
+import FileItem from "./_components/FileItem";
 const FileView = ({ params }) => {
   const db = getFirestore(app);
   const [file, setFile] = useState(null);
