@@ -1,9 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Download } from "lucide-react";
+import { Download, Eye, EyeOff } from "lucide-react";
+
 const FileItem = ({ file }) => {
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   return (
     file && (
@@ -26,23 +32,35 @@ const FileItem = ({ file }) => {
           </h2>
         </div>
         {file.password.length > 3 ? (
-          <input
-            type="password"
-            className="p-2 border rounded-md text-[14px] mt-5 text-center outline-gray-400"
-            placeholder="Enter password to get access"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative mt-5 w-full">
+            <input
+              type={passwordVisible ? "text" : "password"}
+              className="p-2 pr-10 border rounded-md text-[14px] text-center outline-gray-400 w-full"
+              placeholder="Enter password to get access"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 z-10"
+            >
+              {passwordVisible ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
+            </button>
+          </div>
         ) : null}
 
         <button
-          href=""
           className="flex gap-2 p-2 bg-primary text-white rounded-full px-5 items-center hover:bg-blue-600 text-[14px] mt-5 text-center justify-center disabled:bg-gray-300"
           disabled={file.password !== password}
           onClick={() => window.open(file.fileUrl)}
         >
           <Download className="h-4 w-4" /> Download
         </button>
-        <h2 className="text-gray-700 text-[12px]">*Term and conditions</h2>
+        <h2 className="text-gray-700 text-[12px]">*Terms and conditions</h2>
       </div>
     )
   );

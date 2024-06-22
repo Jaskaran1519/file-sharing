@@ -1,6 +1,6 @@
 import GlobalApi from "./../../../../_utils/GlobalApi";
 import { useUser } from "@clerk/nextjs";
-import { Copy, CopyIcon } from "lucide-react";
+import { Copy, Eye, EyeOff } from "lucide-react";
 
 import React, { useState } from "react";
 
@@ -9,6 +9,7 @@ const FileShareForm = ({ file, onPasswordSave }) => {
   const [password, setpassword] = useState("");
   const [email, setEmail] = useState("");
   const [copyNotification, setCopyNotification] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const { user } = useUser();
 
@@ -32,6 +33,9 @@ const FileShareForm = ({ file, onPasswordSave }) => {
         setCopyNotification(false);
       }, 1500);
     });
+  };
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
   return (
     file && (
@@ -64,12 +68,23 @@ const FileShareForm = ({ file, onPasswordSave }) => {
           </div>
           {ispasswordEnable ? (
             <div className="flex gap-3 items-center">
-              <div className="border rounded-md w-full p-2">
+              <div className="border rounded-md w-full p-2 relative">
                 <input
-                  type="password"
-                  className="disabled:text-gray-500 bg-transparent outline-none"
+                  type={passwordVisible ? "text" : "password"}
+                  className="disabled:text-gray-500 bg-transparent outline-none w-full"
                   onChange={(e) => setpassword(e.target.value)}
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 z-10"
+                >
+                  {passwordVisible ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
               </div>
               <button
                 className="p-2 bg-primary text-white rounded-md disabled:bg-gray-300 active:bg-gray-500 hover:bg-gray-800"
