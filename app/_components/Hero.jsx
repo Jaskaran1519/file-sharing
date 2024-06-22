@@ -28,12 +28,12 @@ const Hero = () => {
                 Get Started
               </Link>
 
-              <a
+              <Link
                 className="block w-full rounded px-12 py-3 text-sm font-medium text-primary shadow hover:text-hoverPrimary focus:outline-none focus:ring active:text-red-500 sm:w-auto"
                 href="/about"
               >
                 Learn More
-              </a>
+              </Link>
             </div>
           </div>
         </div>

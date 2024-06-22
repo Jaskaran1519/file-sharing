@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import Spinner from "./Spinner";
 import AlertMsg from "./AlertMsg";
 import FilePreview from "./FilePreview";
 import ProgressBar from "./ProgressBar";
 
 function UploadForm({ uploadBtnClick, progress, uploading }) {
-  // Accept uploading state as prop
   const [file, setFile] = useState();
   const [errorMsg, setErrorMsg] = useState();
 
@@ -21,7 +21,7 @@ function UploadForm({ uploadBtnClick, progress, uploading }) {
   };
 
   return (
-    <div className="text-center ">
+    <div className="text-center">
       <div className="flex items-center justify-center w-full">
         <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -63,6 +63,8 @@ function UploadForm({ uploadBtnClick, progress, uploading }) {
 
       {progress > 0 && progress < 100 && uploading ? (
         <ProgressBar progress={progress} />
+      ) : progress === 100 ? (
+        <div className="spinner mx-auto mt-5"></div>
       ) : (
         <button
           disabled={!file}
