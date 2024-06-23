@@ -2,28 +2,28 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="bg-gray-50 text-gray-800 min-h-screen py-8">
+    <div className=" text-gray-800 min-h-screen py-8 w-[90%] mx-auto">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
           About ShareLit
         </h1>
-        <p className="text-lg mb-6 text-center">
+        <p className="text-md mb-6 text-center">
           Welcome to ShareLit – your secure and easy-to-use file sharing
           platform!
         </p>
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
           What is ShareLit?
         </h2>
-        <p className="text-lg mb-6">
+        <p className="text-md mb-6">
           ShareLit is a web application designed to make file sharing simple,
           secure, and efficient. Whether you need to send a document to a
           colleague, share photos with friends, or transfer large files,
           ShareLit is here to help.
         </p>
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
           Key Features
         </h2>
-        <ul className="list-disc list-inside text-lg mb-6">
+        <ul className="list-disc list-inside text-md mb-6 ">
           <li>
             <strong>Easy File Upload:</strong> With ShareLit, you can quickly
             upload your files with just a few clicks. Our intuitive interface
@@ -54,10 +54,10 @@ const About = () => {
             files whenever necessary.
           </li>
         </ul>
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
           How It Works
         </h2>
-        <ol className="list-decimal list-inside text-lg mb-6">
+        <ol className="list-decimal list-inside text-md mb-6">
           <li>
             <strong>Upload Your File:</strong> Simply drag and drop your file or
             select it from your device.
@@ -76,10 +76,10 @@ const About = () => {
             password to securely download the file.
           </li>
         </ol>
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
           Why Choose ShareLit?
         </h2>
-        <p className="text-lg mb-6">
+        <p className="text-md mb-6">
           At ShareLit, we understand the importance of both convenience and
           security in file sharing. Our platform is designed to offer a seamless
           experience while ensuring that your data remains protected. Whether

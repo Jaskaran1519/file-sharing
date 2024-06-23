@@ -93,31 +93,30 @@ const Header = () => {
                 <ul className="flex flex-col items-center gap-6 text-sm mt-10">
                   <li>
                     <Link
+                      href="/upload"
+                      className="text-gray-500 transition hover:text-gray-500/75"
+                      onClick={toggleMobileMenu}
+                    >
+                      Upload
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      href="/files"
+                      className="text-gray-500 transition hover:text-gray-500/75"
+                      onClick={toggleMobileMenu}
+                    >
+                      Files
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       className="text-gray-500 transition hover:text-gray-500/75"
                       href="/about"
                       onClick={toggleMobileMenu}
                     >
                       About
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      className="text-gray-500 transition hover:text-gray-500/75"
-                      href="/blog"
-                      onClick={toggleMobileMenu}
-                    >
-                      Blog
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-primary"
-                      href="/files"
-                      onClick={toggleMobileMenu}
-                    >
-                      Get Started
                     </Link>
                   </li>
                 </ul>
