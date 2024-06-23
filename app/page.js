@@ -5,7 +5,6 @@ import Hero from "./_components/Hero";
 const page = () => {
   return (
     <div>
-      <Header />
       <Hero />
     </div>
   );
