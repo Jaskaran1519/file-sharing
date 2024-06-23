@@ -1,7 +1,8 @@
 "use client";
 
-import { File, Shield, Upload } from "lucide-react";
+import { Book, File, Shield, Upload } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -25,6 +26,12 @@ const SideNav = () => {
       icon: Shield,
       path: "/upgrade",
     },
+    {
+      id: 4,
+      name: "About",
+      icon: Book,
+      path: "/about",
+    },
   ];
 
   const [activeIndex, setActiveIndex] = useState();
@@ -33,7 +40,9 @@ const SideNav = () => {
   return (
     <div className="shadow-sm border-r h-full">
       <div className="p-5 border-b ">
-        <Image src="/logo.svg" width={150} height={100} alt="logo" />
+        <Link href="/">
+          <Image src="/logo.svg" width={150} height={100} alt="logo" />
+        </Link>
       </div>
       <div className="flex flex-col float-left w-full">
         {menuList.map((item, index) => (
