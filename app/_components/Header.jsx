@@ -53,7 +53,7 @@ const Header = () => {
               </div>
 
               <button
-                className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
+                className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden z-50"
                 onClick={toggleMobileMenu}
               >
                 <span className="sr-only">Toggle menu</span>
@@ -78,7 +78,7 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-50 flex">
             <div
-              className="bg-white w-64 h-full shadow-lg transform transition-transform duration-200"
+              className="bg-white w-64 h-full shadow-lg transform transition-transform duration-400"
               style={{
                 transform: isMobileMenuOpen
                   ? "translateX(0)"
