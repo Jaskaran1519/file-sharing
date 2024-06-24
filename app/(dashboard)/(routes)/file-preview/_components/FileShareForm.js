@@ -54,7 +54,7 @@ const FileShareForm = ({ file, onPasswordSave }) => {
               onClick={() => onCopyClick()}
             />
             {copyNotification && (
-              <div className="text-gray-500 bg-white rounded-full absolute -top- text-[1rem] p-2 border-[1px] border-gray-500 mt-2">
+              <div className="text-gray-500 font-bold bg-white rounded-full absolute -top-10 right-0 text-[0.5rem] p-2 border-[1px] border-gray-500 mt-2">
                 Copied
               </div>
             )}
