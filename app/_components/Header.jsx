@@ -86,7 +86,7 @@ const Header = () => {
               }}
             >
               <div className="mt-6 px-3 flex justify-between">
-                <Image src="logo.svg" width={70} height={70} alt="/" />
+                <Image src="/logo.svg" width={70} height={70} alt="/" />
                 <UserButton afterSignOutUrl="/" />
               </div>
               <nav aria-label="Global" className="md:hidden">
