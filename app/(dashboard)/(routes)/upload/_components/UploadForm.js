@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Spinner from "./Spinner";
+import Spinner from "../../../../_components/Spinner";
 import AlertMsg from "./AlertMsg";
 import FilePreview from "./FilePreview";
 import ProgressBar from "./ProgressBar";
@@ -64,7 +64,7 @@ function UploadForm({ uploadBtnClick, progress, uploading }) {
       {progress > 0 && progress < 100 && uploading ? (
         <ProgressBar progress={progress} />
       ) : progress === 100 ? (
-        <div className="spinner mx-auto mt-5"></div>
+        <div className="spinner mx-auto mt-[40vh]"></div>
       ) : (
         <button
           disabled={!file}

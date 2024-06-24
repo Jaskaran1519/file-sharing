@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { UserButton } from "@clerk/nextjs";
 
 const SideNav = () => {
   const menuList = [
@@ -39,10 +40,11 @@ const SideNav = () => {
 
   return (
     <div className="shadow-sm border-r h-full">
-      <div className="p-5 border-b ">
+      <div className="p-5 border-b flex justify-between">
         <Link href="/">
           <Image src="/logo.svg" width={150} height={100} alt="logo" />
         </Link>
+        <UserButton afterSignOutUrl="/" />
       </div>
       <div className="flex flex-col float-left w-full">
         {menuList.map((item, index) => (
