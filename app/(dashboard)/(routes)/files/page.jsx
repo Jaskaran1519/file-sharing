@@ -138,12 +138,12 @@ const Files = () => {
   return (
     <div className="w-full h-auto">
       <div className="w-[90%] mx-auto text-[20px] text-center my-5 text-gray-600 flex flex-wrap justify-between pr-5">
-        <strong className="text-[24px] py-3 text-gray-800">
+        <strong className="text-[24px]  py-3 text-gray-800">
           Your Uploaded Files
         </strong>
         {selectedFiles.length > 0 && (
           <button
-            className="flex items-center px-4 py-2 text-sm text-red-600 bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none"
+            className="flex items-center px-4 py-2 my-2 text-sm text-red-600 bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none"
             onClick={deleteSelectedFiles}
           >
             <Trash className="w-5 h-5 mr-2" />
@@ -184,15 +184,15 @@ const Files = () => {
                 pointerEvents: isDrawerOpen ? "none" : "auto",
               }}
             >
-              <p className="text-lg font-medium text-gray-900 truncate">
+              <p className="text-lg font-medium select-none text-gray-900 truncate">
                 {file.fileName}
               </p>
               <div className="flex justify-between items-center">
                 <div className="w-[50%]">
-                  <p className="text-sm text-gray-500 truncate">
+                  <p className="text-sm select-none text-gray-500 truncate">
                     {file.fileType}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm select-none text-gray-500">
                     {(file.fileSize / (1024 * 1024)).toFixed(2)} MB
                   </p>
                 </div>
