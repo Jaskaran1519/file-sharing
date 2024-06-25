@@ -132,7 +132,7 @@ const Files = () => {
             </div>
           ))}
           {filteredFiles.length === 0 && (
-            <div className="text-center text-gray-900 text-[2rem] font-semibold flex justify-center mt-[35vh]">
+            <div className="w-[70vw] h-[70vh] text-center text-gray-900 text-[2rem] font-semibold mx-auto mt-[30vh] ">
               No files found.
             </div>
           )}

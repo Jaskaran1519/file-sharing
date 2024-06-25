@@ -6,12 +6,15 @@ import React, { useEffect, useState } from "react";
 const Fileinfo = ({ file }) => {
   const [fileType, setFileType] = useState();
   useEffect(() => {
-    file && setFileType(file?.fileType.split("/")[0]);
-    console.log(fileType);
+    if (file) {
+      const type = file?.fileType.split("/")[0];
+      setFileType(type);
+      console.log(type); // Log the type directly here
+    }
   }, [file]);
   return (
     file && (
-      <div className="text-center  border flex justify-center m-4 flex-col items-center p-2 rounded-xl border-gray-400">
+      <div className="text-center  border flex justify-center m-4 flex-col items-center p-2 rounded-xl border-gray-400 overflow-hidden">
         {file?.fileType == "image" ? (
           <Image
             src={fileType == "image" ? file?.fileUrl : "/file.png"}
@@ -23,7 +26,7 @@ const Fileinfo = ({ file }) => {
         ) : (
           <File size={200} className="text-primary" />
         )}
-        <div className="">
+        <div className="overflow-hidden">
           <h2>{file.fileName}</h2>
           <h2 className="text-gray-400 text-[13px]">{file.fileType}</h2>
         </div>

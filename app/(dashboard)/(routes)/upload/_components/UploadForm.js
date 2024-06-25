@@ -64,7 +64,7 @@ function UploadForm({ uploadBtnClick, progress, uploading }) {
       {progress > 0 && progress < 100 && uploading ? (
         <ProgressBar progress={progress} />
       ) : progress === 100 ? (
-        <div className="spinner mx-auto mt-[40vh]"></div>
+        <div className="spinner mx-auto mt-5"></div>
       ) : (
         <button
           disabled={!file}
