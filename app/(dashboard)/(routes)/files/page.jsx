@@ -116,7 +116,7 @@ const Files = () => {
   };
 
   const handleMouseDown = (fileId) => {
-    pressTimer.current = setTimeout(() => handleLongPress(fileId), 1000);
+    pressTimer.current = setTimeout(() => handleLongPress(fileId), 500);
   };
 
   const handleMouseUp = () => {
@@ -124,7 +124,7 @@ const Files = () => {
   };
 
   const handleTouchStart = (fileId) => {
-    pressTimer.current = setTimeout(() => handleLongPress(fileId), 1000);
+    pressTimer.current = setTimeout(() => handleLongPress(fileId), 500);
   };
 
   const handleTouchEnd = () => {
