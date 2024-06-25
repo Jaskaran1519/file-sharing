@@ -103,11 +103,11 @@ const Files = () => {
   };
 
   const handleFileSelect = (fileId) => {
-    setSelectedFiles((prevSelectedFiles) =>
-      prevSelectedFiles.includes(fileId)
-        ? prevSelectedFiles.filter((id) => id !== fileId)
-        : [...prevSelectedFiles, fileId]
-    );
+    const newSelectedFiles = selectedFiles.includes(fileId)
+      ? selectedFiles.filter((id) => id !== fileId)
+      : [...selectedFiles, fileId];
+    setSelectedFiles(newSelectedFiles);
+    setShowCheckboxes(newSelectedFiles.length > 0); // Show checkboxes if there are selected files
   };
 
   const handleLongPress = (fileId) => {
@@ -137,8 +137,8 @@ const Files = () => {
 
   return (
     <div className="w-full h-auto">
-      <div className="w-[90%] mx-auto text-[20px] text-center my-5 text-gray-600 flex flex-wrap justify-between pr-5">
-        <strong className="text-[24px]  py-3 text-gray-800">
+      <div className="w-[90%] mx-auto text-[20px] text-center my-5 text-gray-600 flex flex-wrap justify-between items-center pr-5">
+        <strong className="text-[24px] py-3 text-gray-800">
           Your Uploaded Files
         </strong>
         {selectedFiles.length > 0 && (
@@ -146,13 +146,12 @@ const Files = () => {
             className="flex items-center px-4 py-2 my-2 text-sm text-red-600 bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none"
             onClick={deleteSelectedFiles}
           >
-            <Trash className="w-5 h-5 mr-2" />
-            Delete Selected
+            <Trash className="w-5 h-5 " />
           </button>
         )}
         <input
           type="text"
-          className="px-3 py-2 h-10 border-[1px] text-[16px] border-gray-300 rounded-lg"
+          className="px-3 py-2 h-10 border-[1px] text-[16px] border-gray-300 rounded-lg "
           placeholder="Search"
           value={searchTerm}
           onChange={handleSearchChange}
@@ -230,7 +229,7 @@ const Files = () => {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 20, stiffness: 100 }}
-              className="w-[100vh] md:w-full  h-[50vh] bg-white  shadow-lg overflow-y-auto"
+              className="w-[100vh] md:w-full h-[50vh] bg-white shadow-lg overflow-y-auto"
             >
               <div className="w-full flex justify-between items-center p-4 bg-gray-100 border-b border-gray-200">
                 <h3 className="text-lg font-semibold text-gray-800 truncate">
@@ -259,7 +258,6 @@ const Files = () => {
                     <p className="text-[1.5rem] font-semibold text-gray-600 mb-2">
                       File Type:{" "}
                       <span className="text-gray-400 text-normal">
-                        {" "}
                         {selectedFile.fileType}
                       </span>
                     </p>
