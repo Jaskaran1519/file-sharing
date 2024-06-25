@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   getFirestore,
   collection,
@@ -21,8 +21,11 @@ const Files = () => {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false); // State to track drawer open/close
-  const [searchTerm, setSearchTerm] = useState(""); // State for search input
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [showCheckboxes, setShowCheckboxes] = useState(false);
+  const pressTimer = useRef(null); // Use ref to store the press timer
   const db = getFirestore(app);
 
   useEffect(() => {
@@ -56,25 +59,40 @@ const Files = () => {
     try {
       await deleteDoc(doc(db, "uploadedFile", fileId));
       setFiles(files.filter((file) => file.id !== fileId));
-      setSelectedFile(null); // Close the drawer after deleting
-      setIsDrawerOpen(false); // Close drawer explicitly
+      setSelectedFile(null);
+      setIsDrawerOpen(false);
     } catch (error) {
       console.error("Error deleting file: ", error);
     }
   };
 
+  const deleteSelectedFiles = async () => {
+    try {
+      const deletePromises = selectedFiles.map((fileId) =>
+        deleteDoc(doc(db, "uploadedFile", fileId))
+      );
+      await Promise.all(deletePromises);
+      setFiles(files.filter((file) => !selectedFiles.includes(file.id)));
+      setSelectedFiles([]);
+      setShowCheckboxes(false); // Hide checkboxes after deletion
+    } catch (error) {
+      console.error("Error deleting files: ", error);
+    }
+  };
+
   const openDrawer = (file) => {
-    setSelectedFile(file);
-    setIsDrawerOpen(true); // Open drawer when a file is clicked
+    if (!showCheckboxes) {
+      setSelectedFile(file);
+      setIsDrawerOpen(true);
+    }
   };
 
   const closeDrawer = () => {
     setSelectedFile(null);
-    setIsDrawerOpen(false); // Close drawer
+    setIsDrawerOpen(false);
   };
 
   const handleBackdropClick = (e) => {
-    // Close the drawer if clicked outside of it
     if (e.target === e.currentTarget) {
       closeDrawer();
     }
@@ -84,7 +102,35 @@ const Files = () => {
     setSearchTerm(e.target.value);
   };
 
-  // Filter files based on search term
+  const handleFileSelect = (fileId) => {
+    setSelectedFiles((prevSelectedFiles) =>
+      prevSelectedFiles.includes(fileId)
+        ? prevSelectedFiles.filter((id) => id !== fileId)
+        : [...prevSelectedFiles, fileId]
+    );
+  };
+
+  const handleLongPress = (fileId) => {
+    setShowCheckboxes(true);
+    handleFileSelect(fileId);
+  };
+
+  const handleMouseDown = (fileId) => {
+    pressTimer.current = setTimeout(() => handleLongPress(fileId), 1000);
+  };
+
+  const handleMouseUp = () => {
+    clearTimeout(pressTimer.current);
+  };
+
+  const handleTouchStart = (fileId) => {
+    pressTimer.current = setTimeout(() => handleLongPress(fileId), 1000);
+  };
+
+  const handleTouchEnd = () => {
+    clearTimeout(pressTimer.current);
+  };
+
   const filteredFiles = files.filter((file) =>
     file.fileName.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -95,6 +141,15 @@ const Files = () => {
         <strong className="text-[24px] py-3 text-gray-800">
           Your Uploaded Files
         </strong>
+        {selectedFiles.length > 0 && (
+          <button
+            className="flex items-center px-4 py-2 text-sm text-red-600 bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none"
+            onClick={deleteSelectedFiles}
+          >
+            <Trash className="w-5 h-5 mr-2" />
+            Delete Selected
+          </button>
+        )}
         <input
           type="text"
           className="px-3 py-2 h-10 border-[1px] text-[16px] border-gray-300 rounded-lg"
@@ -111,8 +166,19 @@ const Files = () => {
           {filteredFiles.map((file) => (
             <div
               key={file.id}
-              className="bg-white rounded-lg shadow-md p-4 cursor-pointer"
-              onClick={() => openDrawer(file)}
+              className={`bg-white rounded-lg shadow-md p-4 cursor-pointer ${
+                selectedFiles.includes(file.id)
+                  ? "border-2 border-blue-500"
+                  : ""
+              }`}
+              onClick={() =>
+                showCheckboxes ? handleFileSelect(file.id) : openDrawer(file)
+              }
+              onMouseDown={() => handleMouseDown(file.id)}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onTouchStart={() => handleTouchStart(file.id)}
+              onTouchEnd={handleTouchEnd}
               style={{
                 filter: isDrawerOpen ? "blur(4px)" : "none",
                 pointerEvents: isDrawerOpen ? "none" : "auto",
@@ -121,13 +187,23 @@ const Files = () => {
               <p className="text-lg font-medium text-gray-900 truncate">
                 {file.fileName}
               </p>
-              <div className="">
-                <p className="text-sm text-gray-500 truncate">
-                  {file.fileType}
-                </p>
-                <p className="text-sm text-gray-500">
-                  {(file.fileSize / (1024 * 1024)).toFixed(2)} MB
-                </p>
+              <div className="flex justify-between items-center">
+                <div className="w-[50%]">
+                  <p className="text-sm text-gray-500 truncate">
+                    {file.fileType}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {(file.fileSize / (1024 * 1024)).toFixed(2)} MB
+                  </p>
+                </div>
+                {showCheckboxes && (
+                  <input
+                    type="checkbox"
+                    checked={selectedFiles.includes(file.id)}
+                    onChange={() => handleFileSelect(file.id)}
+                    className="mb-2"
+                  />
+                )}
               </div>
             </div>
           ))}
@@ -139,9 +215,8 @@ const Files = () => {
         </div>
       )}
 
-      {/* Drawer Component */}
       <AnimatePresence>
-        {isDrawerOpen && (
+        {isDrawerOpen && !showCheckboxes && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -199,7 +274,6 @@ const Files = () => {
                         href={`${process.env.NEXT_PUBLIC_BASE_URL}/file-preview/${selectedFile.id}`}
                         className="flex items-center px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none"
                         onClick={() => {
-                          // Implement file preview logic
                           console.log("Preview file:", selectedFile.fileName);
                         }}
                       >
@@ -213,13 +287,6 @@ const Files = () => {
                         <Trash className="w-5 h-5 mr-2" />
                         Delete
                       </button>
-                      {/* <Link
-                        href={selectedFile.fileUrl}
-                        className="flex items-center px-4 py-2 text-sm text-red-600 bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none"
-                      >
-                        <Eye />
-                        View
-                      </Link> */}
                     </div>
                   </>
                 )}
