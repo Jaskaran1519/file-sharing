@@ -196,7 +196,7 @@ const Files = () => {
                     </p>
                     <div className="flex space-x-2 mt-10">
                       <Link
-                        href={`/file-preview/${selectedFile.id}`}
+                        href={`${process.env.NEXT_PUBLIC_BASE_URL}/file-preview/${selectedFile.id}`}
                         className="flex items-center px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none"
                         onClick={() => {
                           // Implement file preview logic
